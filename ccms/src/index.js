@@ -3,16 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux'
-import allReducer from './Reducers/'
 import { Provider } from 'react-redux'
-
-const store = createStore(allReducer);
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/Store'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
